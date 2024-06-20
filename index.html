@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Guess the number</h1>
+        <input id="guessnumber" type="number" min="1" max="10">
+        <button onclick="check()">Check</button>
+        <p id="result" class="fade-in">You are wrong/Right</p>
+        <p id="score">Score: 10</p>
+        <img id="resultImage" src="" alt="Result Image" class="bounce" style="display: none; width: 200px;">
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+<style>
+/* styles.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('image.png'); /* Replace with the path to your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    text-align: center;
+    background-color: orange;
+    padding: 40px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+}
+
+input {
+    padding: 20px;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Animation for bounce effect */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.bounce {
+    animation: bounce 1s;
+}
+/* styles.css */
+
+/* Existing CSS code remains unchanged */
+
+/* Animation for cheer-up effect */
+@keyframes cheerUp {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25%, 75% {
+        transform: translateY(-20px);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+.cheer-up {
+    animation: cheerUp 1s ease-in-out;
+}
+
+</style>
+<script>
+// scripts.js
+
+var guessnumber = document.getElementById("guessnumber");
+var result = document.getElementById("result");
+var score = document.getElementById("score");
+var resultImage = document.getElementById("resultImage");
+var randomnumber = Math.floor(Math.random() * 10) + 1;
+var totalscore = 10;
+
+function check() {
+    var enterednumber = parseInt(guessnumber.value); // Ensure the input is treated as a number
+    if (randomnumber === enterednumber) {
+        result.textContent = "Right";
+        resultImage.src = 'd.jpeg'; // Replace with the path to your "correct" image
+        resultImage.style.display = 'block';
+        result.classList.remove('fade-in'); // Remove class to reset animation
+        void result.offsetWidth; // Trigger reflow to restart animation
+        result.classList.add('fade-in'); // Add class to apply animation
+        resultImage.classList.remove('bounce'); // Remove class to reset animation
+        void resultImage.offsetWidth; // Trigger reflow to restart animation
+        resultImage.classList.add('bounce'); // Add class to apply animation
+
+        // Add cheer-up animation
+        resultImage.classList.remove('cheer-up'); // Remove class to reset animation
+        void resultImage.offsetWidth; // Trigger reflow to restart animation
+        resultImage.classList.add('cheer-up'); // Add class to apply animation
+
+        alert("You won!");
+    } else {
+        totalscore -= 1;
+        score.textContent = "Score: " + totalscore;
+        result.textContent = "Wrong";
+        resultImage.src = 'do.jpeg'; // Replace with the path to your "wrong" image
+        resultImage.style.display = 'block';
+        result.classList.remove('fade-in'); // Remove class to reset animation
+        void result.offsetWidth; // Trigger reflow to restart animation
+        result.classList.add('fade-in'); // Add class to apply animation
+        resultImage.classList.remove('bounce'); // Remove class to reset animation
+        void resultImage.offsetWidth; // Trigger reflow to restart animation
+        resultImage.classList.add('bounce'); // Add class to apply animation
+    }
+}
+
+</script>
+
